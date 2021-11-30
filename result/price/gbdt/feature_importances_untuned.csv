@@ -1,0 +1,114 @@
+feature,importance
+bedrooms,0.03423732636169322
+calculated_host_listings_count_shared_rooms,0.01934490747398416
+host_total_listings_count,0.029374168412097595
+calculated_host_listings_count_private_rooms,0.3613033783443416
+calculated_host_listings_count_entire_homes,0.03976676189879117
+maximum_nights_avg_ntm,0.0023852061856709716
+maximum_nights,0.0005734549442007997
+accommodates,0.21845305483939548
+availability_365,0.027895476260824767
+minimum_nights_avg_ntm,0.028631449992012323
+bathrooms,0.05541609748510531
+host_identity_verified_f,0.0001526074268914072
+host_identity_verified_t,0.00016278361087990992
+neighbourhood_cleansed_Arverne,8.491883904913196e-05
+neighbourhood_cleansed_Astoria,0.0
+neighbourhood_cleansed_Battery Park City,0.0
+neighbourhood_cleansed_Bay Ridge,0.0
+neighbourhood_cleansed_Bedford-Stuyvesant,0.0
+neighbourhood_cleansed_Bensonhurst,0.0
+neighbourhood_cleansed_Boerum Hill,0.0001466678148215142
+neighbourhood_cleansed_Borough Park,0.0
+neighbourhood_cleansed_Brighton Beach,4.659171466339008e-05
+neighbourhood_cleansed_Brooklyn Heights,0.00042073043397098883
+neighbourhood_cleansed_Brownsville,0.0
+neighbourhood_cleansed_Bushwick,0.0004612001785857243
+neighbourhood_cleansed_Canarsie,0.0
+neighbourhood_cleansed_Carroll Gardens,0.0004995340519090475
+neighbourhood_cleansed_Chelsea,0.0015253582610631098
+neighbourhood_cleansed_Chinatown,0.0
+neighbourhood_cleansed_Clinton Hill,0.0007424009823349301
+neighbourhood_cleansed_Cobble Hill,0.0
+neighbourhood_cleansed_Corona,0.0
+neighbourhood_cleansed_Crown Heights,0.0
+neighbourhood_cleansed_Cypress Hills,0.0
+neighbourhood_cleansed_Ditmars Steinway,0.0
+neighbourhood_cleansed_East Elmhurst,0.0
+neighbourhood_cleansed_East Flatbush,0.0
+neighbourhood_cleansed_East Harlem,0.0055447933015285115
+neighbourhood_cleansed_East New York,0.0004968462850869558
+neighbourhood_cleansed_East Village,0.0
+neighbourhood_cleansed_Elmhurst,0.0
+neighbourhood_cleansed_Financial District,0.0
+neighbourhood_cleansed_Flatbush,0.0
+neighbourhood_cleansed_Flatiron District,0.0
+neighbourhood_cleansed_Flatlands,0.0001910449212904038
+neighbourhood_cleansed_Flushing,0.0
+neighbourhood_cleansed_Forest Hills,0.0
+neighbourhood_cleansed_Fort Greene,0.000288985281690766
+neighbourhood_cleansed_Glendale,0.0
+neighbourhood_cleansed_Gowanus,0.00038041478275350197
+neighbourhood_cleansed_Gramercy,0.0
+neighbourhood_cleansed_Gravesend,0.0
+neighbourhood_cleansed_Greenpoint,0.00217566197566038
+neighbourhood_cleansed_Greenwich Village,0.0002824177345099454
+neighbourhood_cleansed_Harlem,0.01593836421044118
+neighbourhood_cleansed_Hell's Kitchen,0.0
+neighbourhood_cleansed_Inwood,0.0040502694960646715
+neighbourhood_cleansed_Jackson Heights,0.0
+neighbourhood_cleansed_Jamaica,0.0
+neighbourhood_cleansed_Kensington,0.0
+neighbourhood_cleansed_Kingsbridge,0.0
+neighbourhood_cleansed_Kips Bay,0.0
+neighbourhood_cleansed_Little Italy,0.0
+neighbourhood_cleansed_Long Island City,0.0011711925804289507
+neighbourhood_cleansed_Lower East Side,0.0
+neighbourhood_cleansed_Maspeth,0.0
+neighbourhood_cleansed_Midtown,0.009773905520116706
+neighbourhood_cleansed_Midwood,0.0
+neighbourhood_cleansed_Morningside Heights,0.0012023397863297916
+neighbourhood_cleansed_Mott Haven,0.0
+neighbourhood_cleansed_Murray Hill,0.0
+neighbourhood_cleansed_Nolita,0.00014592996685609152
+neighbourhood_cleansed_Ozone Park,0.0
+neighbourhood_cleansed_Park Slope,0.0006598190017060881
+neighbourhood_cleansed_Prospect Heights,0.0
+neighbourhood_cleansed_Prospect-Lefferts Gardens,0.0
+neighbourhood_cleansed_Queens Village,0.0
+neighbourhood_cleansed_Red Hook,0.0
+neighbourhood_cleansed_Rego Park,0.0
+neighbourhood_cleansed_Richmond Hill,0.0
+neighbourhood_cleansed_Ridgewood,0.0
+neighbourhood_cleansed_Rockaway Beach,0.0
+neighbourhood_cleansed_Roosevelt Island,0.0
+neighbourhood_cleansed_Rosedale,0.0
+neighbourhood_cleansed_Sheepshead Bay,0.0
+neighbourhood_cleansed_SoHo,0.0005452437459928195
+neighbourhood_cleansed_South Slope,0.0
+neighbourhood_cleansed_Springfield Gardens,0.0
+neighbourhood_cleansed_St. Albans,0.0
+neighbourhood_cleansed_Stuyvesant Town,0.00011177842926218748
+neighbourhood_cleansed_Sunnyside,0.0
+neighbourhood_cleansed_Sunset Park,0.0
+neighbourhood_cleansed_Theater District,0.0024592176507868594
+neighbourhood_cleansed_Tribeca,0.000828524497186823
+neighbourhood_cleansed_Upper East Side,0.0
+neighbourhood_cleansed_Upper West Side,0.0
+neighbourhood_cleansed_Wakefield,0.0
+neighbourhood_cleansed_Washington Heights,0.009766884768462155
+neighbourhood_cleansed_West Village,0.001996402977378839
+neighbourhood_cleansed_Williamsburg,0.011743652081889454
+neighbourhood_cleansed_Windsor Terrace,0.0
+neighbourhood_cleansed_Woodhaven,0.0
+neighbourhood_cleansed_Woodside,0.0
+neighbourhood_group_cleansed_Bronx,0.0
+neighbourhood_group_cleansed_Brooklyn,0.0
+neighbourhood_group_cleansed_Manhattan,0.10322969515160423
+neighbourhood_group_cleansed_Queens,0.004636809393784513
+has_availability_f,1.093815953452736e-05
+has_availability_t,1.2260289687991935e-05
+host_is_superhost_f,3.0071075064531865e-05
+host_is_superhost_t,0.0
+instant_bookable_f,0.0005695882802978585
+instant_bookable_t,0.00013287314231677036
