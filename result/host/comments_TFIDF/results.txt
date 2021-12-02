@@ -1,0 +1,88 @@
+Logistic Regression
+Accuracy
+Train Accuracy : 0.8817261777492694
+Test Accuracy  : 0.7410083493898523
+
+Confusion Matrix
+True Negative: 3467
+True Positive: 1148
+False Negative: 433
+False Positive: 1180
+
+Classification Report
+               precision    recall  f1-score   support
+
+Not_Superhost       0.89      0.75      0.81      4647
+    Superhost       0.49      0.73      0.59      1581
+
+     accuracy                           0.74      6228
+    macro avg       0.69      0.74      0.70      6228
+ weighted avg       0.79      0.74      0.75      6228
+
+
+Naive Bayes(multin)
+Accuracy
+Train Accuracy : 0.6195923312664814
+Test Accuracy  : 0.3416827231856134
+
+Confusion Matrix
+True Negative: 560
+True Positive: 1568
+False Negative: 13
+False Positive: 4087
+
+Classification Report
+               precision    recall  f1-score   support
+
+Not_Superhost       0.98      0.12      0.21      4647
+    Superhost       0.28      0.99      0.43      1581
+
+     accuracy                           0.34      6228
+    macro avg       0.63      0.56      0.32      6228
+ weighted avg       0.80      0.34      0.27      6228
+
+
+Random forest
+Accuracy
+Train Accuracy : 0.9758748485496401
+Test Accuracy  : 0.7745664739884393
+
+Confusion Matrix
+True Negative: 4230
+True Positive: 594
+False Negative: 987
+False Positive: 417
+
+Classification Report
+               precision    recall  f1-score   support
+
+Not_Superhost       0.81      0.91      0.86      4647
+    Superhost       0.59      0.38      0.46      1581
+
+     accuracy                           0.77      6228
+    macro avg       0.70      0.64      0.66      6228
+ weighted avg       0.75      0.77      0.76      6228
+
+
+
+XGBoost
+Accuracy
+Train Accuracy : 0.9996080108331552
+Test Accuracy  : 0.7965639049454079
+
+Confusion Matrix
+True Negative: 4212
+True Positive: 749
+False Negative: 832
+False Positive: 435
+
+Classification Report
+               precision    recall  f1-score   support
+
+Not_Superhost       0.84      0.91      0.87      4647
+    Superhost       0.63      0.47      0.54      1581
+
+     accuracy                           0.80      6228
+    macro avg       0.73      0.69      0.71      6228
+ weighted avg       0.78      0.80      0.79      6228
+
