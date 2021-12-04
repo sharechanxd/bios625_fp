@@ -2,7 +2,8 @@
 title: "Superhost"
 author: "Han Zhang"
 date: "12/3/2021"
-output: pdf_document
+output:  
+   pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -12,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## **Superhost Model**
 ## *logsitic regression*
-**Superhost** are experienced hosts who provide a shining example for other hosts, and extraordinary experiences for their guests. Once they are called Superhosts, and their listings feature a special badge that let everyone know they are extra awesome. Althoug the airbnb websites have posted out the standards of becoming a superhost. We still want to dig out important information from the data analysis, and then provide evey host with insights about how to increase the probability of becoming a superhost. 
+*Superhost* are experienced hosts who provide a shining example for other hosts, and extraordinary experiences for their guests. Once they are called Superhosts, and their listings feature a special badge that let everyone know they are extra awesome. Althoug the airbnb websites have posted out the standards of becoming a superhost. We still want to dig out important information from the data analysis, and then provide evey host with insights about how to increase the probability of becoming a superhost. 
 ```{r echo= FALSE }
 library(readr)
 library(tidyverse)
@@ -27,8 +28,8 @@ hostdata = select(listingdata,all_of(interest_variable))
 ```
 
 
-```{r echo=, warning=FALSE}
-# hostdata = read.csv('host_data_without_comments_NYC.csv')
+```{r echo=FALSE, warning=FALSE}
+#hostdata = read.csv('host_data_without_comments_NYC.csv')
 #omit the na rows
 hostdata[hostdata=="N/A"] = NA
 hostdata2 = na.omit(hostdata)
@@ -119,7 +120,7 @@ Finally, we attained a "superhost" model. And then we apply this pre-trained mod
 
 When getting inside into the model, we find that _hs_response_rate_ and _hs_response_time_ contribute a lot to the model from the magnitude of the coeffecient. So we assume that improving the response rate and shrinking the response time may increase the chance of becoming a superhost.
 
-```{r echo=, warning=FALSE}
+```{r echo=FALSE, warning=FALSE}
 # test train
 
 set.seed(100)
@@ -179,6 +180,7 @@ itemFrequencyPlot(basket2,topN=10,horiz =T,col='red')
 # subset.rules <- which(colSums(is.subset(rules2, rules2)) > 1)
 # plotly_arules(subRules)
 ```
+
 We use *Apriori Algorithm* to generate asscocaition rules from the ammenities and superhost. The Apriori algorithm employs level-wise search for frequent itemsets. It works by eliminating itemsets by looking ﬁrst at smaller sets and recognizing that a large set cannot be frequent unless all its subsets are. Put simply, the algorithm states that if an itemset is infrequent, then all its subsets must also be infrequent. 
 
 * X:$X$ is called antecedent or left-hand-side (LHS).
@@ -199,6 +201,7 @@ We use *Apriori Algorithm* to generate asscocaition rules from the ammenities an
 In the ammenities, there are over 1400 items. In order to find what ammenities sets appear most frequently given that the host is a superhost, we set the maximum length of rules to 10, and limit the confidence level to 0.8, and then rank the rules by lift in descending order.
 
 Finally, we find that if the apartment has building staff and conditioner, the host is likely to be a superhost.
+
 ```{r}
 # plotly_arules(subRules)
 
@@ -206,11 +209,11 @@ library(arulesViz)
 association.rules <- apriori(basket2, parameter = list(supp=0.01, conf=0.8, maxlen =10),
                              appearance = list(default="lhs",rhs="superhost"))
 subset.rules <- which(colSums(is.subset(association.rules, association.rules)) > 1)
-length(association.rules)
-length(subset.rules)
+#length(association.rules)
+#length(subset.rules)
 reduced_rule = association.rules[-subset.rules]
 fre = sort(reduced_rule,by='lift',decreasing =T)
-inspect(fre)
+#inspect(fre)
 plot(fre)
 #plot_arules(fre)
 plot(fre, method = "graph",  engine = "htmlwidget")
@@ -220,11 +223,50 @@ association.rules2 <- apriori(basket2, parameter = list(supp=0.2, conf=0.8, maxl
                              appearance = list(default="lhs",rhs="non_superhost"))
 
 fre2 = sort(association.rules2,by='lift',decreasing =T)
-inspect(head(fre2,n=10))
+#inspect(head(fre2,n=10))
 
 ```
 
+##Comments
+```{r echo=FALSE}
+comments = read_csv("F:/bios625/project/reviews.csv")
+```
+
+1. Cleaning and Removing Noise
+First we get rid of unhelpful parts of the data, or noise, by converting characters to lowercase, removing punctuations marks, and removing stop words and typos.
+2. Convert the Format
+We convert the txt format of comments into CSV in order to facilitate reading and manipulate the data
+3. Feature Extraction
+We use the most popular feature extraction techniques, TfidfVectorizer and CountVectorizer for text data. CountVectorizer converts a collection of text documents to a matrix of token counts: the occurrences of tokens in each document. This implementation produces a sparse representation of the counts. TfidfVectorizer weights the word counts by a measure of how often they appear in the documents. The reason why we use these two feature extraction technique is that we want to compare the pro and cons of these two techniques under the current dataset.
+4. Model Fitting
+We try to fit the extracted features (comments) with corresponding lables(superhost), by employing several machine learning models, including _Logistic Regression_, _Naive Bayesian_, _Random forest_, and _XGBoost_. We first send models to the training split to learn, and then validate them in the tesing splits. When evaluating and comparing the performance of the models, we use *accuracy*, *call*, and *F1* .etc
 
 
+## Tables for ML
+```{r message=FALSE, warning=FALSE}
+# install.packages("kableExtra")
+library(kableExtra)
+options(knitr.kable.NA='')
+TFIDF = readxl::read_excel("F:/bios625/project/bios625_fp/other/TFIDF.xlsx")
+# t1 = TFIDF %>% kbl(caption = "The results of ML models based on TfidfVectorizer") %>% kable_classic_2(full_width = F) 
+CountV = readxl::read_excel("F:/bios625/project/bios625_fp/other/CountVectorizer.xlsx")
+# t2 = TFIDF %>% kbl(caption = "The results of ML models based on CountVectorizer") %>% kable_classic_2(full_width = F) 
+# knitr::kables(list(knitr::kable(TFIDF,caption ="The results of ML models based on TfidfVectorizer" ), knitr::kable(CountV,caption ="The results of ML models based on CountVectorizer" )))
+# kable(TFIDF) %>%
+#   kable_styling(full_width = FALSE, position = "float_left")
+# kable(CountV ) %>%
+#   kable_styling(full_width = FALSE, position = "left")
 
+knitr::kables(list(
+  kable(caption = "The results of ML models based on TfidfVectorizer",
+    TFIDF
+    ) %>% kable_styling(),
+    kable(caption = "The results of ML models based on CountVectorizer",
+      CountV
+    ) %>% kable_styling()
+    
+  )
+) %>% kable_styling()
+
+```
 
