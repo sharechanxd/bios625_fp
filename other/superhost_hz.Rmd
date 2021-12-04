@@ -1,0 +1,230 @@
+---
+title: "Superhost"
+author: "Han Zhang"
+date: "12/3/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## **Superhost Model**
+## *logsitic regression*
+**Superhost** are experienced hosts who provide a shining example for other hosts, and extraordinary experiences for their guests. Once they are called Superhosts, and their listings feature a special badge that let everyone know they are extra awesome. Althoug the airbnb websites have posted out the standards of becoming a superhost. We still want to dig out important information from the data analysis, and then provide evey host with insights about how to increase the probability of becoming a superhost. 
+```{r echo= FALSE }
+library(readr)
+library(tidyverse)
+listingdata = read.csv('F:/bios625/project/ny/listings.csv')
+
+interest_variable = c("host_id", "host_response_time","host_response_rate","host_is_superhost","bathrooms_text","amenities","room_type",
+                       "host_identity_verified","accommodates","bedrooms","price","number_of_reviews","review_scores_rating",
+                      "instant_bookable" ,"reviews_per_month","review_scores_cleanliness","review_scores_accuracy" ,"review_scores_checkin" ,"review_scores_communication")
+
+hostdata = select(listingdata,all_of(interest_variable))
+
+```
+
+
+```{r echo=, warning=FALSE}
+# hostdata = read.csv('host_data_without_comments_NYC.csv')
+#omit the na rows
+hostdata[hostdata=="N/A"] = NA
+hostdata2 = na.omit(hostdata)
+#filter out the empty rows
+hostdata3 = hostdata2[!apply(hostdata2 == "", 1, any),]
+#change text bathroom into number
+bathroom_n = readr::parse_number(hostdata3$bathrooms_text, na = 'NA')
+hostdata3$bathroom_n = bathroom_n
+#change the price text into number
+price = readr::parse_number(hostdata3$price, na = "NA")
+hostdata3$price_n = price
+#change the host_response_time into factor variables
+hostdata3 <- hostdata3 %>% mutate(hs_response_time = case_when(
+  host_response_time == "within an hour" ~ 1L,
+  host_response_time =="within a few hours" ~ 2L,
+  host_response_time =="within a day" ~ 3L,
+  TRUE ~ 4L
+))
+
+# change response_rate into number
+hs_response_rate = readr::parse_number(hostdata3$host_response_rate)/100
+hostdata3$hs_response_rate =hs_response_rate
+
+#change accepetance _rate into number
+# hs_accepetance_rate =  readr::parse_number(hostdata3$host_acceptance_rate)/100
+# hostdata3$hs_accepetance_rate = hs_accepetance_rate
+
+# change instant_bookable into 0, 1
+hostdata3$instant_bookable = ifelse(hostdata3$instant_bookable=="t",1,0)
+hostdata3$host_is_superhost = ifelse(hostdata3$host_is_superhost=="t",1,0)
+hostdata3$host_identity_verified = ifelse(hostdata3$host_identity_verified=="t",1,0)
+
+hostdata4 = na.omit(hostdata3)
+```
+##
+The _host_is_superhost_ is a binary varaible, which takes the values of "True" or "Flase". Thus, we use logistic regression to build our model. And We select _14_ variables which is potentially related to the superhost. After excluding missing data, we ended up with 14,058 obsersvations. We didn't include the _comments_ and _ammenities_ varaibles, which are text information and will be analyazed by different model. 
+
+First, we tested the correlation between covariates, and found that there existed high correlationship among same prefix variables. Since these variables contain different underlying information, we use *Principle Component Analysis* (PCA) to overcome the multicollinearity problem and extracting dominant patterns in a group of predictor.
+
+We randomly split the observations into training set and test set at a ratio of 7:3. Since we didn't know which varaibles should be selected, we dumped all varaibles into the regression model, and filtered out the appropriates variables according to the real situation and  **Akaike information criterion** (AIC).
+
+
+```{r echo= FALSE}
+#only covariates
+covariates = hostdata4[,c("host_identity_verified","accommodates","bedrooms","number_of_reviews","instant_bookable" ,"reviews_per_month","review_scores_cleanliness",   "review_scores_accuracy",      "review_scores_checkin","review_scores_communication", "bathroom_n" , "price_n","hs_response_time",            "hs_response_rate" )]
+
+library("corrplot")
+mycor = corrplot(cor(covariates))
+
+#full components pca
+fullpca = princomp(covariates,cor = T)
+fullpca_pred = predict(fullpca)
+
+
+#review principal components
+reviewpca = princomp(data.frame(hostdata4$review_scores_cleanliness,hostdata4$review_scores_accuracy
+                                , hostdata4$review_scores_checkin,hostdata4$review_scores_communication),cor =T)
+reviewpca_pred = predict(reviewpca)
+
+#response  principal components
+responsepca = princomp(data.frame(hostdata4$hs_response_rate,hostdata4$hs_response_time))
+responsepca_pred = predict(responsepca)
+
+# bedroom bathroom accommodates principal components
+bbpca = princomp(data.frame(hostdata4$accommodates,hostdata4$bedrooms,hostdata4$bathroom_n,hostdata4$price_n))
+bbpca_pred = predict(bbpca)
+
+#all covariates are used in the log regression auc = 0.7646
+library(Deducer)
+logistic0 = glm(hostdata4$host_is_superhost ~., data = covariates)
+logistsic0_reg= step(logistic0,direction = 'back')
+rocplot(logistsic0_reg)
+
+# use the principal components of reviews and response and bed/bath auc = 0.7644
+xx = data.frame(covariates[,c("host_identity_verified","number_of_reviews" ,"instant_bookable","reviews_per_month")],reviewpca_pred,responsepca_pred,bbpca_pred)
+logistic1 = glm(hostdata4$host_is_superhost ~., data = xx)
+logistsic1_reg= step(logistic1,direction = 'back')
+rocplot(logistsic1_reg)
+
+# conduct the pca with whole covariates auc= 0.7646
+logistic2 = glm(hostdata4$host_is_superhost ~., data = data.frame(fullpca_pred))
+logistsic2_reg= step(logistic2,direction = 'back')
+rocplot(logistsic2_reg)
+
+```
+
+Finally, we attained a "superhost" model. And then we apply this pre-trained model to the test case. The **Area Under the Curve** (AUC) is 0.776, meaning our model can effectively distinguish the superhost and nonsuperhost classes. 
+
+When getting inside into the model, we find that _hs_response_rate_ and _hs_response_time_ contribute a lot to the model from the magnitude of the coeffecient. So we assume that improving the response rate and shrinking the response time may increase the chance of becoming a superhost.
+
+```{r echo=, warning=FALSE}
+# test train
+
+set.seed(100)
+
+samplet = sample(c(1:nrow(hostdata4)), as.integer(nrow(hostdata4))*3/10)
+tesths = covariates[samplet,]
+trainhs = covariates[-samplet,]
+
+#train set regression
+logistic3 = glm(hostdata4[-samplet,"host_is_superhost"]~. , data = trainhs)
+logistsic3_reg= step(logistic3,direction = 'back')
+rocplot(logistsic3_reg)
+summary(logistsic3_reg)
+
+prediction = predict(logistsic3_reg,type = "response", newdata = tesths)
+library("pROC")
+modelroc = roc(hostdata4[samplet,"host_is_superhost"],prediction)
+plot(modelroc, print.auc=T)
+
+```
+
+## *Associating Rule Mining*
+
+The _ammenities_ is a text variable, cantaining a list of ammenities of the house or department. We assume that there are some association between the availability of certain ammenities and the superhost. In order to dig out the information behind the sets of items, we borrow the algorithm *Association Rule* from business field. Given a set of data, we can find the rules that will predict the occurrence of superhost based on the occurrences of ammenities in the list.
+```{r echo=FALSE, warning=FALSE}
+library(stringr)
+library(arules)
+library(leaflet)
+library(fpc)
+library(openxlsx)
+library(ggplot2)
+c = hostdata4[1:nrow(hostdata4),"amenities"]
+for(i in 1:nrow(hostdata4)){
+  c[i] = gsub('"','',substr(c[i],2,nchar(c[i])-1))
+  c[i]=str_replace(c[[i]],', [^,]*TV with [^,]*(,)|, [^,]*TV with [^,]*[a-zA-Z]$',', TV\\1')
+  c[i]=str_replace(c[[i]],', [^,]*[sS]ound system[^,]*(,)|, [^,]*[sS]ound system[^,]*[a-zA-Z]$',', Sound system\\1')
+  c[i]=str_replace(c[[i]],', [^,]*refrigerator ^,]*(,)|, [^,]*refrigerator[^,]*[a-zA-Z]$',', Refrigerator\\1')
+  c[i]=str_replace(c[[i]],', [^,]*[Gg]ame console[^,]*(,)|, [^,]*[Gg]ame console [^,]*[a-zA-Z]$',', Game console\\1')
+  c[i]=str_replace(c[[i]],', [^,]*[Ff]ree[^,]*parking[^,]*(,)|, [^,]*[Ff]ree[^,]*parking[^,]*[a-zA-Z]$',', Free parking\\1')
+
+}
+
+d = hostdata4[1:nrow(hostdata4),"host_is_superhost"]
+for (i in 1:nrow(hostdata4)){
+  if (d[i] == 1) {
+    c[i] = paste(c[i]," superhost", sep = ',')
+  } else {
+    c[i] = paste(c[i]," non_superhost",sep = ',')
+  }
+}
+write.csv2(c,'c.csv',row.names =F, quote = F )
+
+basket2 = read.transactions('c.csv',format ='basket',sep=',')
+itemFrequencyPlot(basket2,topN=10,horiz =T,col='red')
+# rules2=apriori(basket2,parameter = list(support = 0.5, confidence = 0.8, maxlen = 10,minlen=5))
+# #remove duplicate set
+# subset.rules <- which(colSums(is.subset(rules2, rules2)) > 1)
+# plotly_arules(subRules)
+```
+We use *Apriori Algorithm* to generate asscocaition rules from the ammenities and superhost. The Apriori algorithm employs level-wise search for frequent itemsets. It works by eliminating itemsets by looking ﬁrst at smaller sets and recognizing that a large set cannot be frequent unless all its subsets are. Put simply, the algorithm states that if an itemset is infrequent, then all its subsets must also be infrequent. 
+
+* X:$X$ is called antecedent or left-hand-side (LHS).
+* Y:$Y$ is called consequent or right-hand-side (RHS)
+
+* Support: The frequency of A in the dataset.
+  $Supp(X) = \frac{Freq(X)}{T}$
+  
+* Confidence: How often the items X and Y occur together in the dataset when the occurence of X is already given.
+  $Confidence = \frac{Freq(X,Y)}{Freq(X)}$
+  
+* Lift: The ratio of the observed support measure and expected support if X and Y are independent of each other. 
+  $Lift=\frac{Supp(X,Y)}{{Supp(X)}\times{Supp(X)}}$
+  * $Lift=1$ : The probability of occurrence of antecedent and consequent is independent of each other.
+  * $Lift>1$ : It determines the degree to which the two itemsets are dependent to each other.
+  * $Lift<1$ :  It tells us that one item is a substitute for other items, which means one item has a negative effect on another.
+  
+In the ammenities, there are over 1400 items. In order to find what ammenities sets appear most frequently given that the host is a superhost, we set the maximum length of rules to 10, and limit the confidence level to 0.8, and then rank the rules by lift in descending order.
+
+Finally, we find that if the apartment has building staff and conditioner, the host is likely to be a superhost.
+```{r}
+# plotly_arules(subRules)
+
+library(arulesViz)
+association.rules <- apriori(basket2, parameter = list(supp=0.01, conf=0.8, maxlen =10),
+                             appearance = list(default="lhs",rhs="superhost"))
+subset.rules <- which(colSums(is.subset(association.rules, association.rules)) > 1)
+length(association.rules)
+length(subset.rules)
+reduced_rule = association.rules[-subset.rules]
+fre = sort(reduced_rule,by='lift',decreasing =T)
+inspect(fre)
+plot(fre)
+#plot_arules(fre)
+plot(fre, method = "graph",  engine = "htmlwidget")
+plot(fre, method="paracoord")
+
+association.rules2 <- apriori(basket2, parameter = list(supp=0.2, conf=0.8, maxlen = 10,minlen=5),
+                             appearance = list(default="lhs",rhs="non_superhost"))
+
+fre2 = sort(association.rules2,by='lift',decreasing =T)
+inspect(head(fre2,n=10))
+
+```
+
+
+
+
+
