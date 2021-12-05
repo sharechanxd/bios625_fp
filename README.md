@@ -15,11 +15,11 @@
 |  MAE            | 0.2926     | 0.1972        | 0.1979   | 0.2365 | 0.2028     | 0.2058  | 0.2043        | 0.2562 | 0.2476    |
 | RMSE            | 0.4705     | 0.3915        | 0.381    | 0.4115 | 0.3783     | 0.3806  | 0.3776        | 0.4485 | 0.4312    |
 
-<img src="https://raw.githubusercontent.com/sharechanxd/bios625_fp/main/plot/price_results.png" width="100%">
+<img src="https://raw.githubusercontent.com/sharechanxd/bios625_fp/main/plot/price_results.png" width="60%">
 
 ### Superhost models results 
 
-<img src="https://raw.githubusercontent.com/sharechanxd/bios625_fp/main/plot/host_tab.png" width="100%">
+<img src="https://raw.githubusercontent.com/sharechanxd/bios625_fp/main/plot/host_tab.png" width="80%">
 
 
 Contributor: 
