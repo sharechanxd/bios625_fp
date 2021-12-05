@@ -3,12 +3,6 @@
 
  In this project, we explore the Airbnb datasets with several visualization method. 
  
- say something.
- 
- We build our train and test dataset with feature selection and deal with text data using bag-of-words model. After this we train classifier models to predict labels of superhost and regressor models to predict houses' prices. And we found using tuned XGBoost with grid-search cross validations help us got not bad results on both host and price dataset. And our models could help host to determine their prices at New York and how they could improve their host services to be named as "Superhost" and acquire priority. 
- 
- However, due to imbalance dataset, our superhost model perform worse predicting "superhost" label than "non-superhost" label. As future work, we could combine feature selection data with bag-of-words model for reviews text data to conduct a multi-modal learning for better results. Features in this two modal data could possibly enhance final models' performance as we see in their single results. And below are our results.
-
 ### Clustering and visualization 
 First, we plot a map (Figure1) regarding the relationship between the price and the location of the house to have an intuitive view of the whole, where the red point represents a higher price . We can see that red points mainly gather at south of the central park. 
 
@@ -17,6 +11,14 @@ Then we conduct clustering analysis based on the coordinates (i.e. longitude and
 Figure1             |  Figure2 DBSCAN cluster map|Figure3|Figure4 Boxplot
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
 ![shit](https://raw.githubusercontent.com/sharechanxd/bios625_fp/main/plot/figure1.png){#id .class width=20%}  |  ![shir](https://raw.githubusercontent.com/sharechanxd/bios625_fp/main/plot/figure2.png){#id .class width=20%}|  ![shir](https://raw.githubusercontent.com/sharechanxd/bios625_fp/main/plot/figure3.png){#id .class width=20%}|  ![shir](https://raw.githubusercontent.com/sharechanxd/bios625_fp/main/plot/figure4.png){#id .class width=20%}
+
+--------------------
+
+We build our train and test dataset with feature selection and deal with text data using bag-of-words model. After this we train classifier models to predict labels of superhost and regressor models to predict houses' prices. And we found using tuned XGBoost with grid-search cross validations help us got not bad results on both host and price dataset. And our models could help host to determine their prices at New York and how they could improve their host services to be named as "Superhost" and acquire priority. 
+ 
+However, due to imbalance dataset, our superhost model perform worse predicting "superhost" label than "non-superhost" label. As future work, we could combine feature selection data with bag-of-words model for reviews text data to conduct a multi-modal learning for better results. Features in this two modal data could possibly enhance final models' performance as we see in their single results. And below are our results.
+
+
 
 ### Prices models evaluation result with MAE and RMSE
 | Esti\\Models | Linear Reg | Random Forest | RF Tuned | GBDT   | GBDT Tuned | XGBoost | XGBoost Tuned | MLP    | MLP Tuned |
@@ -76,6 +78,6 @@ We use **TfidfVectorizer** (abbr. **Tfidf**) and **CountVectorizer** (abbr. **CV
 From the results we could see that using **feature selected data** with **XGBoost** would get better models. But due to the imbalance, our model could not predict superhost labels as well as non-superhost.
 
 ---------------------------
-Contributor: 
+Contributor: Han Zhang(hzzhang@umich.edu), Mengqi Xu(mqxu@umich.edu), Xiao Chen(xiaocx@umich.edu), Yuqiang Zhang(archiez@umich.edu)
 
-Contribution: 
+Contribution: All our four conducted data prepossessing and preliminary analysis at the exploratory stage. Data clean and visualization are mainly contributed to Mengqi Xu. Host models are mainly by Han Zhang and Xiao Chen. Price models are mainly by Yuqiang Zhang and Xiao Chen. The final report materials are drafted by all.
