@@ -1,4 +1,4 @@
-# Story of Airbnb: Price Predicting and Superhost Selection
+# Story of Airbnb: Price and Superhost Predicting 
  This is a final project for the BIOSTAT625: Computing with big data at University of Michigan. 
 
  In this project, we explore the Airbnb datasets with several visualization method. 
@@ -8,6 +8,15 @@
  We build our train and test dataset with feature selection and deal with text data using bag-of-words model. After this we train classifier models to predict labels of superhost and regressor models to predict houses' prices. And we found using tuned XGBoost with grid-search cross validations help us got not bad results on both host and price dataset. And our models could help host to determine their prices at New York and how they could improve their host services to be named as "Superhost" and acquire priority. 
  
  However, due to imbalance dataset, our superhost model perform worse predicting "superhost" label than "non-superhost" label. As future work, we could combine feature selection data with bag-of-words model for reviews text data to conduct a multi-modal learning for better results. Features in this two modal data could possibly enhance final models' performance as we see in their single results. And below are our results.
+
+### Clustering and visualization 
+First, we plot a map (Figure1) regarding the relationship between the price and the location of the house to have an intuitive view of the whole, where the red point represents a higher price . We can see that red points mainly gather at south of the central park. 
+
+Then we conduct clustering analysis based on the coordinates (i.e. longitude and latitude) using DBSCAN (Figure2). By DBSCAN we divide the houses into four clusters initially, and we can see that cluster1 is pretty large and there are over 30,000 houses in it. Therefore, we continue to use k-means clustering to further cluster points in initial cluster1. Eventually we get 7 clusters (including 4 k-means clusters in initial cluster1 and remaining 3 clusters) as figure 3 shows. We find that there are obvious differences between the prices of houses of different clusters as the box-plot (figure 4), so we confirm the location of the house effects its price in some way. 
+
+Figure1             |  Figure2 DBSCAN cluster map|Figure3|Figure4 Boxplot
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+![shit](https://raw.githubusercontent.com/sharechanxd/bios625_fp/main/plot/figure1.png){#id .class width=20%}  |  ![shir](https://raw.githubusercontent.com/sharechanxd/bios625_fp/main/plot/figure2.png){#id .class width=20%}|  ![shir](https://raw.githubusercontent.com/sharechanxd/bios625_fp/main/plot/figure3.png){#id .class width=20%}|  ![shir](https://raw.githubusercontent.com/sharechanxd/bios625_fp/main/plot/figure4.png){#id .class width=20%}
 
 ### Prices models evaluation result with MAE and RMSE
 | Esti\\Models | Linear Reg | Random Forest | RF Tuned | GBDT   | GBDT Tuned | XGBoost | XGBoost Tuned | MLP    | MLP Tuned |
