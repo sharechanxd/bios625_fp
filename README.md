@@ -23,7 +23,9 @@ Considering both **MAE** and **RMSE**, the tuned Random forest and tuned XGBoost
 
 ### Superhost models results 
 
-For feature 
+We use **TfidfVectorizer** (abbr. **Tfidf**) and **CountVectorizer** (abbr. **CV**) as bag-of-words model for text data. CountVectorizer converts a collection of text documents to a matrix of token counts: the occurrences of tokens in each document. This implementation produces a sparse representation of the counts. TfidfVectorizer weights the word counts by a measure of how often they appear in the documents. Besides, we have feature selected data from **listings.csv**. So we would fit differnt classifier models to check their performence on predicting superhost. We would build models with feature selected data (abbr. **FSD**) from previous sections or bag-of-words alone. We tried to combine them together as multi-modal model but this encountered computing ability issue with extreme large memory usage. And this could be a future work direction. Here is the results of our superhost models. Notice that due to the imbalance, after spliting train and test data, we do upsampling for labels **superhost** in train data. Number of superhost and Non-superhost is $1581:4647$ in test data.
+
+#### For feature 
 
 | **Model**           | **Label**     | **percision** | **recall** | **F1 score** | **Test accuracy** |
 |---------------------|---------------|---------------|------------|--------------|-------------------|
@@ -36,7 +38,7 @@ For feature
 | XGBoost             | Not_Superhost | 0.89          | 0.91       | 0.9          | 0.86            |
 |                     | Superhost     | 0.72          | 0.67       | 0.69         |                   |
 
-With bag-of-words: CountVectorizer
+#### With bag-of-words: CountVectorizer
 
 | **Model**           | **Label**     | **percision** | **recall** | **F1 score** | **Test accuracy** |
 |---------------------|---------------|---------------|------------|--------------|-------------------|
@@ -49,7 +51,7 @@ With bag-of-words: CountVectorizer
 | XGBoost             | Not_Superhost | 0.84          | 0.9        | 0.87         | 0.79              |
 |                     | Superhost     | 0.62          | 0.48       | 0.54         |                   |
 
-With bag-of-words: TfidfVectorizer
+#### With bag-of-words: TfidfVectorizer
 
 | **Model**           | **Label**     | **percision** | **recall** | **F1 score** | **Test accuracy** |
 |---------------------|---------------|---------------|------------|--------------|-------------------|
@@ -62,7 +64,7 @@ With bag-of-words: TfidfVectorizer
 | XGBoost             | Not_Superhost | 0.84          | 0.91       | 0.87         | 0.80              |
 |                     | Superhost     | 0.63          | 0.47       | 0.54         |                   |
 
-
+From the results we could see that using **feature selected data** with **XGBoost** would get better models. But due to the imbalance, our model could not predict superhost labels as well as non-superhost.
 
 
 Contributor: 
