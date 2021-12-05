@@ -66,7 +66,7 @@ We use **TfidfVectorizer** (abbr. **Tfidf**) and **CountVectorizer** (abbr. **CV
 
 From the results we could see that using **feature selected data** with **XGBoost** would get better models. But due to the imbalance, our model could not predict superhost labels as well as non-superhost.
 
-
+---------------------------
 Contributor: 
 
 Contribution: 
