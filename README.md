@@ -15,11 +15,50 @@
 |  MAE            | 0.2926     | 0.1972        | 0.1979   | 0.2365 | 0.2028     | 0.2058  | 0.2043        | 0.2562 | 0.2476    |
 | RMSE            | 0.4705     | 0.3915        | 0.381    | 0.4115 | 0.3783     | 0.3806  | 0.3776        | 0.4485 | 0.4312    |
 
-<img src="https://raw.githubusercontent.com/sharechanxd/bios625_fp/main/plot/price_results.png" width="60%">
+<img src="https://raw.githubusercontent.com/sharechanxd/bios625_fp/main/plot/price_results.png" width="100%">
 
 ### Superhost models results 
 
-<img src="https://raw.githubusercontent.com/sharechanxd/bios625_fp/main/plot/host_tab.png" width="80%">
+For feature 
+
+| **Model**           | **Label**     | **percision** | **recall** | **F1 score** | **Test accuracy** |
+|---------------------|---------------|---------------|------------|--------------|-------------------|
+| Logistic Regression | Not_Superhost | 0.88          | 0.72       | 0.79         | 0.71              |
+|                     | Superhost     | 0.46          | 0.71       | 0.56         |                   |
+| Naive Bayesian      | Not_Superhost | 0.88          | 0.18       | 0.3          | 0.37              |
+|                     | Superhost     | 0.28          | 0.93       | 0.43         |                   |
+| Random forest       | Not_Superhost | 0.88          | 0.92       | 0.9          | 0.76              |
+|                     | Superhost     | 0.73          | 0.65       | 0.69         |                   |
+| XGBoost             | Not_Superhost | 0.89          | 0.91       | 0.9          | 0.86            |
+|                     | Superhost     | 0.72          | 0.67       | 0.69         |                   |
+
+With bag-of-words: CountVectorizer
+
+| **Model**           | **Label**     | **percision** | **recall** | **F1 score** | **Test accuracy** |
+|---------------------|---------------|---------------|------------|--------------|-------------------|
+| Logistic Regression | Not_Superhost | 0.84          | 0.86       | 0.85         | 0.77              |
+|                     | Superhost     | 0.56          | 0.51       | 0.53         |                   |
+| Naive Bayesian      | Not_Superhost | 0.87          | 0.55       | 0.67         | 0.6               |
+|                     | Superhost     | 0.37          | 0.77       | 0.5          |                   |
+| Random forest       | Not_Superhost | 0.82          | 0.86       | 0.84         | 0.76              |
+|                     | Superhost     | 0.37          | 0.77       | 0.5          |                   |
+| XGBoost             | Not_Superhost | 0.84          | 0.9        | 0.87         | 0.79              |
+|                     | Superhost     | 0.62          | 0.48       | 0.54         |                   |
+
+With bag-of-words: TfidfVectorizer
+
+| **Model**           | **Label**     | **percision** | **recall** | **F1 score** | **Test accuracy** |
+|---------------------|---------------|---------------|------------|--------------|-------------------|
+| Logistic Regression | Not_Superhost | 0.89          | 0.75       | 0.81         | 0.74              |
+|                     | Superhost     | 0.49          | 0.73       | 0.59         |                   |
+| Naive Bayesian      | Not_Superhost | 0.98          | 0.12       | 0.21         | 0.34              |
+|                     | Superhost     | 0.28          | 0.99       | 0.43         |                   |
+| Random forest       | Not_Superhost | 0.81          | 0.91       | 0.86         | 0.77              |
+|                     | Superhost     | 0.59          | 0.38       | 0.46         |                   |
+| XGBoost             | Not_Superhost | 0.84          | 0.91       | 0.87         | 0.80              |
+|                     | Superhost     | 0.63          | 0.47       | 0.54         |                   |
+
+
 
 
 Contributor: 
