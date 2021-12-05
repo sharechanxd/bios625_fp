@@ -17,6 +17,10 @@
 
 <img src="https://raw.githubusercontent.com/sharechanxd/bios625_fp/main/plot/price_results.png" width="100%">
 
+Considering both **MAE** and **RMSE**, the tuned Random forest and tuned XGBoost models perform best on test dataset. But it's still possible that we would get better results with more tuning on important hyperparameters.And we would just show residual plot and predictions v.s. lables plot for tuned XGBoot here.
+
+<img src="https://raw.githubusercontent.com/sharechanxd/bios625_fp/main/plot/price_res.png" width="100%">
+
 ### Superhost models results 
 
 For feature 
