@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## <span style = "color:purple">1. Introduction and Data inspection</span>
 
-**Airbnb, Inc.** is an American company that operates an online marketplace for lodging, primarily homestays for vacation rentals, and tourism activities. Price is one of the main factors guests consider when choosing where to stay, which even decides a guest's first and last impression. Also, from the perspective of landlords, no matter how beautiful your space, if it’s priced higher than comparable listings in the area, there’s a good chance you’ll miss out on bookings. Additionally, unfair pricing is able to drive up the rental prices in the local areas, disturb economic order, and harm the local make sure that the price defines the maximum value of the product and at the same time it must appeal to the customers.
+**Airbnb, Inc.** is an American company that operates an online marketplace for lodging, primarily homestays for vacation rentals, and tourism activities. Price is one of the main factors guests consider when choosing where to stay, which even decides a guest's first and last impression. Also, from the perspective of landlords, no matter how beautiful your space, if it’s priced higher than comparable listings in the area, there’s a good chance you’ll miss out on bookings. Additionally, unfair pricing is able to drive up the rental prices in the local areas, disturb economic order, and harm the local make sure that the price defines the maximum value of the product and at the same time it must appeal to the customers.Thus, we want to build the price models to help hosts better pricing their property and the superhost model to help improve their host services.
 
 We get data from Inside Airbnb**<http://insideairbnb.com/get-the-data.html>**. We choose New The NYC dataset contains 37274 observations with 74 variables. And this **listing.csv** is linked to **reviews.csv** which we would also make use of later.
 
@@ -99,7 +99,8 @@ Table: Prices models evaluation result with MAE and RMSE.
 knitr::include_graphics("./625_plots/price_results.png")
 ```
 
-Considering both **MAE** and **RMSE**, the tuned Random forest and tuned XGBoost models perform best on test dataset. But it's still possible that we would get better results with more tuning on important hyperparameters. Limited to pages, we would just show residual plot and predictions v.s. lables plot for tuned XGBoot here.
+Considering both **MAE** and **RMSE**, the tuned Random forest and tuned XGBoost models perform best on test dataset. But it's still possible that we would get better results with more tuning on important hyperparameters. Limited to pages, we would just show residual plot and predictions v.s. lables plot for tuned XGBoot here. From the importance scores,  number of private rooms, accommodates, bathrooms, neighbourhood location(especially Manhattan) have largest influence. And some outliers would affect the prediction results.
+
 
 ```{r, echo = FALSE,fig.pos='htb', fig.align = "center",out.width = '80%', fig.cap='Tuned XGBoost prediction illustration'}
 knitr::include_graphics("./625_plots/price_res.png")
@@ -113,7 +114,7 @@ We use **TfidfVectorizer** (abbr. **Tfidf**) and **CountVectorizer** (abbr. **CV
 knitr::include_graphics("./625_plots/host_tab.png")
 ```
 
-From the results we could see that using **feature selected data** with **XGBoost** would get better models. But due to the imbalance, our model could not predict superhost labels as well as non-superhost. Here is ROC curves for XGBoost method.
+From the results we could see that using **feature selected data** with **XGBoost** would get better models. But due to the imbalance, our model could not predict superhost labels as well as non-superhost. Here is ROC curves for XGBoost method. From our integrated results, we found neighbourhood location, reviews per months and reviews rating have largest influence on being a superhost. And collecting good comments from tenants does make sense.
 
 ```{r, echo = FALSE,fig.pos='htb', fig.align = "center",out.width = '100%', fig.cap='ROC Curves: CV/Tfidf/FSD'}
 knitr::include_graphics("./625_plots/host_roc.png")
