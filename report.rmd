@@ -37,7 +37,7 @@ plot 1             |  plot 2 DBSCAN cluster map|plot 3|plot 4 Boxplot
 
 **a) Convert text features to numeric/categorical and Drop useless features**
 
-We first use regular expression to extract price value from **price** and other features like **bathroom_text** would also be converted to numeric values. Meanwhile, there are some useless features considering our purposes in the dataset. For instance, we do not want to rely on reviews information because for a new host or department to predict prices because there could be no reviews. And we do not need to consider **listing_url** and other variables similar. So we would first drop some features seperately for prices models and superhost models.
+We first use regular expression to extract price value from **price** and other features like **bathroom_text** would also be converted to numeric values. Meanwhile, there are some useless features considering our purposes in the dataset. For instance, we do not want to rely on reviews information because for a new host or department to predict prices there could be no reviews. And we do not need to consider **listing_url** and other variables similar. So we would first drop some features seperately for prices models and superhost models.
 
 **b) Check missing data**
 
