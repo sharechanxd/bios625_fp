@@ -1,5 +1,5 @@
 # Story of Airbnb: Price and Superhost Predicting 
- This is a final project for the BIOSTAT625: Computing with big data at University of Michigan. 
+ This is a final project for the BIOSTAT625: Computing with big data at University of Michigan. Please refer to **report.pdf** for full report
 
  In this project, we explore the Airbnb datasets with several visualization method. 
  
