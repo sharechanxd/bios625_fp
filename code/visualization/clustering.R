@@ -190,3 +190,5 @@ final_dataprice7$final_cluster = 7
 final_cluster_data = data.frame(rbind(final_dataprice1,final_dataprice2,final_dataprice3,final_dataprice4,
       final_dataprice5,final_dataprice6,final_dataprice7))
 #write.csv(final_cluster_data, file = "final_cluster_data.csv")
+
+
